@@ -139,6 +139,21 @@ using(var db = new LiteDatabase("MyOrderDatafile.db"))
 
 ```
 
+## Limits
+- Max Document Size: Around 16 MB (After BSON Conversion and with UTF8 Encoding)
+  - Actually 15,910 MB (See Constants.MAX_DOCUMENT_SIZE)
+- Max Index Name Length: 32 B (See Constants.INDEX_NAME_MAX_LENGTH)
+- Max Index Key Length: 1023 B (See Constants.MAX_INDEX_KEY_LENGTH)
+  - Max Primary Key Value Size: 1024 B (after BSON Serialisation)
+  - Max File ID: 1024 B (after BSON Serialisation)
+- Max OpenTransactions: 100 (See Constants.MAX_OPEN_TRANSACTIONS)
+  - All Transactions can consume around 1GB of RAM before written to Disk
+- Collections Names in Sum: 8000 B (UTF8 Encoded)
+- Classes Hierarchy Depth: Default max. 20 (Can be raised)
+- Up to 255 indexes per collections, including the _id primary key, but limited to 8096 bytes for index definition.
+  - Each index uses: 41 bytes + LEN(name) + LEN(expression)
+  - So if you have a two letter name for each index the maximum index count is 188
+
 ## Where to use?
 
 - Desktop/local small applications
